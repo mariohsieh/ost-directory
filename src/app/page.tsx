@@ -2,9 +2,6 @@ import Image from 'next/image';
 import searchIcon from '../../public/search-icon.svg';
 
 export default function Home() {
-  // const currentDate: Date = new Date();
-  // const currentYear: number = currentDate.getFullYear();
-
   return (
     <div className='flex flex-col'>
       <header className='bg-black'>
@@ -31,10 +28,18 @@ export default function Home() {
       <main className='flex flex-col items-center justify-between bg-gray-500'>
         <p>display results here....</p>
       </main>
-      <footer>
-        {/* &copy; {currentYear} Omega Sigma Tau */}
-        // use a static site generation to render footer element
-      </footer>
+      {/* <Footer></Footer> */}
     </div>
   );
 }
+
+// function Footer() {
+//   const currentDate: Date = new Date();
+//   const currentYear: number = currentDate.getFullYear();
+
+//   return (
+//     <footer>
+//       &copy; {currentYear} Omega Sigma Tau
+//     </footer>
+//   );
+// }
