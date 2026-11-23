@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import searchIcon from './assets/search-icon.svg';
+import searchIcon from '../../public/search-icon.svg';
 
 export default function Home() {
   // const currentDate: Date = new Date();

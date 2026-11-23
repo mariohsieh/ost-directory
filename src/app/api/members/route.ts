@@ -1,7 +1,7 @@
 import 'server-only';
 
 import { NextResponse } from 'next/server';
-import mongodb from '@/app/lib/mongo-db';
+import mongodb from '@/lib/mongo-db';
 
 export async function GET() {
   try {
