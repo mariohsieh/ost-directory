@@ -1,0 +1,65 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  border: none;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2.25rem;
+}
+
+h3 {
+  font-size: 2.0rem;
+}
+
+h4 {
+  font-size: 1.75rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+}
+
+h6 {
+  font-size: 1.25rem;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+a, a:visited, a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+:focus {
+  outline: none;
+}
+
+::-webkit-input-placeholder {
+  font-family: 'Ubuntu Mono', 'Courier New', monospace;
+}
+
+::-moz-placeholder {
+  font-family: 'Ubuntu Mono', 'Courier New', monospace;
+}
+
+:-ms-input-placeholder {
+  font-family: 'Ubuntu Mono', 'Courier New', monospace;
+}
+
+:-moz-placeholder {
+  font-family: 'Ubuntu Mono', 'Courier New', monospace;
+}
