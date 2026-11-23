@@ -1,6 +1,7 @@
 import 'server-only';
 
-import mongodb from "@/app/lib/mongo-db";
+import { NextResponse } from 'next/server';
+import mongodb from '@/app/lib/mongo-db';
 
 export async function GET() {
   try {
@@ -11,9 +12,14 @@ export async function GET() {
       .find({})
       .toArray();
 
-    console.log('all members', allMembers);
-    return Response.json(allMembers);
+    console.log('mongo db response', allMembers);
+
+    return NextResponse.json(allMembers);
   } catch (err) {
     console.log('\x1b[31m%s\x1b[0m', `error connectiong with mongo DB, ${err}`);
+    return NextResponse.json({
+      error: err,
+      status: 500
+    });
   }
 }
