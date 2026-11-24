@@ -36,9 +36,13 @@ export default function AllPledgeYears() {
   }
 
   return (
-    <main>
-      <h1>list of all pledge years</h1>
-      { displayPledgeYears() }
-    </main>
+    <div className='flex flex-col'>
+      <header>
+        <h1>list of all pledge years</h1>
+      </header>
+      <main>
+        { displayPledgeYears() }
+      </main>
+    </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 // interface ProfileProps {
 //   url: string;
@@ -26,13 +26,11 @@ export default function Profile() {
 
   return (
     <div className='flex flex-col'>
-      <header></header>
-      <main>
+      <header>
         <h1>Profile Page</h1>
+      </header>
+      <main className='flex-1'>
       </main>
-      <footer>
-        {/*  footer component here */}
-      </footer>
     </div>
   );
 }
