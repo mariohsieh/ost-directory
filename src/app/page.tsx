@@ -25,21 +25,9 @@ export default function Home() {
           </section>
         </div>
       </header>
-      <main className='flex flex-col items-center justify-between bg-gray-500'>
+      <main className='flex-1 flex flex-col items-center justify-between bg-gray-500'>
         <p>display results here....</p>
       </main>
-      {/* <Footer></Footer> */}
     </div>
   );
 }
-
-// function Footer() {
-//   const currentDate: Date = new Date();
-//   const currentYear: number = currentDate.getFullYear();
-
-//   return (
-//     <footer>
-//       &copy; {currentYear} Omega Sigma Tau
-//     </footer>
-//   );
-// }
