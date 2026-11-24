@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { API_HISTORY_ENDPOINT } from '@/constants';
 
 export default function AllPledgeYears() {
   const [pledgeYears, setPledgeYears] = useState([]);
@@ -8,11 +9,14 @@ export default function AllPledgeYears() {
   useEffect(() => {
     async function getAllPledgeYears() {
       try {
-        const response = await fetch('/api/history');
+        const response = await fetch(`${API_HISTORY_ENDPOINT}?type=year`);
         const data = await response.json();
+        setPledgeYears(data.map((item: {year: string}) => item.year));
 
-        console.log('AllPledgeYears: api response', data);
-        setPledgeYears(data);
+
+        console.log('all pledge years', data.map((item: {year: string}) => item.year));
+
+
       } catch (err) {
         console.log('err', err);
       }
@@ -24,7 +28,7 @@ export default function AllPledgeYears() {
     if (pledgeYears?.length > 0) {
       return (
         <ul>
-          { pledgeYears.map((item) => <li key={item}>{item}</li>) }
+          { pledgeYears.map((item: string) => <li key={item}>{item}</li>) }
         </ul>
       );
     }
