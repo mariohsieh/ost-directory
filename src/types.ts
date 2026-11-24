@@ -1,12 +1,12 @@
-export interface PledgeClass {
+export interface PledgeClassType {
   pledgeClass: string,
   president?: string,
   pledgeMom?: string,
   year: string,
-  members: PledgeClassMember[]
+  members: PledgeClassMemberType[]
 };
 
-export interface PledgeClassMember {
+export interface PledgeClassMemberType {
   name: string,
   pledgeCaptain?: boolean,
   bigBro: string[]
