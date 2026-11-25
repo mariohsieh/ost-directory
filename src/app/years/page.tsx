@@ -3,18 +3,23 @@
 import { useEffect, useState } from 'react';
 import { API_HISTORY_ENDPOINT } from '@/constants';
 
-export default function AllPledgeYears() {
+interface PledgeClassDisplay {
+  year: string,
+  pledgeClass: string
+}
+
+export default function AllPledgeYearsPage() {
   const [pledgeYears, setPledgeYears] = useState([]);
 
   useEffect(() => {
     async function getAllPledgeYears() {
       try {
-        const response = await fetch(`${API_HISTORY_ENDPOINT}?type=year`);
+        const response = await fetch(`${API_HISTORY_ENDPOINT}?type=year,pledgeClass`);
         const data = await response.json();
-        setPledgeYears(data.map((item: {year: string}) => item.year));
+        setPledgeYears(data);
 
 
-        console.log('all pledge years', data.map((item: {year: string}) => item.year));
+        console.log('all pledge years', data);
 
 
       } catch (err) {
@@ -28,7 +33,10 @@ export default function AllPledgeYears() {
     if (pledgeYears?.length > 0) {
       return (
         <ul>
-          { pledgeYears.map((item: string) => <li key={item}>{item}</li>) }
+          {
+            pledgeYears.map((item: PledgeClassDisplay) =>
+            <li key={item.year}>{item.year}: {item.pledgeClass}</li>)
+          }
         </ul>
       );
     }
@@ -37,8 +45,8 @@ export default function AllPledgeYears() {
 
   return (
     <div className='flex flex-col'>
-      <header>
-        <h1>list of all pledge years</h1>
+      <header className='bg-black container flex items-center justify-between'>
+        <h1>list of all pledge classes</h1>
       </header>
       <main>
         { displayPledgeYears() }

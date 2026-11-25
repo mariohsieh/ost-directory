@@ -3,14 +3,14 @@ import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import mongodb from '@/lib/mongo-db';
 import { OST_COLLECTION } from '@/constants';
-import { PledgeClassMember } from '@/types';
+import { PledgeClassMemberType } from '@/types';
 
 interface HistoryGetResponse {
   pledgeClass?: string,
   president?: string,
   pledgeMom?: string,
   year?: string,
-  members?: PledgeClassMember[]
+  members?: PledgeClassMemberType[]
 }
 
 interface QueryFilter {
@@ -47,7 +47,10 @@ export async function GET(request: NextRequest) {
   };
 
   if (type) {
-    projectionFilter.projection[type] = 1;
+    const splitTypes = type.split(',');
+    splitTypes?.forEach((item: string) => {
+      projectionFilter.projection[item] = 1;
+    });
   }
 
 
