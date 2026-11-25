@@ -9,13 +9,13 @@ interface PledgeClassDisplay {
 }
 
 export default function AllPledgeYearsPage() {
-  const [pledgeYears, setPledgeYears] = useState([]);
+  const [pledgeYears, setPledgeYears] = useState<PledgeClassDisplay[]>([]);
 
   useEffect(() => {
     async function getAllPledgeYears() {
       try {
         const response = await fetch(`${API_HISTORY_ENDPOINT}?type=year,pledgeClass`);
-        const data = await response.json();
+        const data: PledgeClassDisplay[] = await response.json();
         setPledgeYears(data);
 
 
