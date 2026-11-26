@@ -1,6 +1,6 @@
 'use client';
 
-import { MouseEvent, useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import searchIcon from '../../public/search-icon.svg';
 import { API_HISTORY_ENDPOINT } from '@/constants';
