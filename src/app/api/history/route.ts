@@ -5,7 +5,7 @@ import mongodb from '@/lib/mongo-db';
 import { OST_COLLECTION } from '@/constants';
 import { PledgeClassMemberType } from '@/types';
 
-interface HistoryGetResponse {
+interface HistoryGetResponseType {
   pledgeClass?: string,
   president?: string,
   pledgeMom?: string,
@@ -13,24 +13,26 @@ interface HistoryGetResponse {
   members?: PledgeClassMemberType[]
 }
 
-interface QueryFilter {
+interface QueryFilterType {
   year?: string | { $gte: string, $lte: string };
+  'members.name'?: { $regex: RegExp };
 }
 
-interface ProjectionFilter {
+interface ProjectionFilterType {
   projection: {
-    _id: number;
-    [key: string]: number
+    [key: string]: number;
   }
 }
 
 export async function GET(request: NextRequest) {
   const searchParams = request?.nextUrl?.searchParams;
   const range = searchParams.get('range');
-  const type = searchParams.get('type');
+  const show = searchParams.get('show');
+  const name = searchParams.get('name');
 
-  const queryFilter: QueryFilter = {};
+  const queryFilter: QueryFilterType = {};
 
+  // add time range
   if (range?.includes('s')) {
     queryFilter.year = {
       $gte: range.slice(0,4),
@@ -40,14 +42,22 @@ export async function GET(request: NextRequest) {
     queryFilter.year = range;
   }
 
-  const projectionFilter: ProjectionFilter = {
+  // add search name
+  if (name) {
+    queryFilter['members.name'] = {
+      $regex: new RegExp(`^.*${name}.*$`, 'i')
+    };
+  }
+
+  const projectionFilter: ProjectionFilterType = {
     projection: {
       _id: 0
     }
   };
 
-  if (type) {
-    const splitTypes = type.split(',');
+  // set fields to get
+  if (show) {
+    const splitTypes = show.split(',');
     splitTypes?.forEach((item: string) => {
       projectionFilter.projection[item] = 1;
     });
@@ -56,7 +66,8 @@ export async function GET(request: NextRequest) {
 
   console.log('>>>>>>>>>>>>>>>>>>>>> api-history: search params', {
     range,
-    type,
+    show,
+    name,
     queryFilter,
     projectionFilter
   });
@@ -65,7 +76,7 @@ export async function GET(request: NextRequest) {
   try {
     const database = await mongodb();
 
-    const response: HistoryGetResponse[] = await database
+    const response: HistoryGetResponseType[] = await database
       .collection(OST_COLLECTION)
       .find(queryFilter, projectionFilter)
       .sort({
@@ -73,7 +84,9 @@ export async function GET(request: NextRequest) {
       })
       .toArray();
 
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>> api-history: mongodb response', response);
+
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>> api-history: mongodb response', JSON.stringify(response));
+
 
     return NextResponse.json(response);
   } catch (err) {
