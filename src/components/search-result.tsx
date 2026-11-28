@@ -7,7 +7,7 @@ export default function SearchResult() {
 
 
   return (
-    <main className='flex-1 flex flex-col items-center justify-between bg-gray-800'>
+    <main className='min-h-screen flex-1 flex flex-col items-center justify-between bg-gray-800'>
       <h2>display results here....</h2>
     </main>
   );
