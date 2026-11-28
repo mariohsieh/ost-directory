@@ -1,6 +1,6 @@
 'use client';
 
-import { MouseEvent, useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import searchIcon from '../../public/search-icon.svg';
 import { API_HISTORY_ENDPOINT } from '@/constants';
@@ -42,7 +42,7 @@ export default function MainHeader() {
       <section className='header-title'>
         <h2 className='flex items-center'>
           <span className='font-[GFS_Didot] text-6xl text-blue-400 mr-[20px]'>ΩΣΤ</span>
-          <span className='text-gray-400'>DIRECTORY</span>
+          <span className='text-gray-400 font-extrabold tracking-widest'>DIRECTORY</span>
         </h2>
       </section>
       <section className=''>

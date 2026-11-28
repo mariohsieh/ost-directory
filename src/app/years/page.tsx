@@ -1,6 +1,3 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import { API_HISTORY_ENDPOINT } from '@/constants';
 
 interface PledgeClassDisplay {
@@ -8,26 +5,36 @@ interface PledgeClassDisplay {
   pledgeClass: string
 }
 
-export default function AllPledgeYearsPage() {
-  const [pledgeYears, setPledgeYears] = useState<PledgeClassDisplay[]>([]);
+async function getAllPledgeYears(): Promise<PledgeClassDisplay[]> {
+  'use cache';
 
-  useEffect(() => {
-    async function getAllPledgeYears() {
-      try {
-        const response = await fetch(`${API_HISTORY_ENDPOINT}?type=year,pledgeClass`);
-        const data: PledgeClassDisplay[] = await response.json();
-        setPledgeYears(data);
+  const url = `${process.env.API_BASE_URL}${API_HISTORY_ENDPOINT}?show=year,pledgeClass`;
+  let pledgeYears;
 
+  try {
+    const response = await fetch(url);
+    pledgeYears = await response.json();
+  } catch (err) {
+    console.log('error getting all pledge years', err)
+  }
 
-        console.log('all pledge years', data);
+  console.log('GET /history api response', {
+    method: 'GET',
+    url,
+    response: pledgeYears
+  });
+  return pledgeYears;
+}
 
+export default async function AllPledgeYearsPage() {
+  let pledgeYears: PledgeClassDisplay[];
 
-      } catch (err) {
-        console.log('err', err);
-      }
-    }
-    getAllPledgeYears();
-  }, []);
+  try {
+    pledgeYears = await getAllPledgeYears();
+    console.log('getAllPledgeYears response', pledgeYears);
+  } catch (err) {
+    console.log('getAllPledgeYears error', err);
+  }
 
   function displayPledgeYears() {
     if (pledgeYears?.length > 0) {
@@ -40,7 +47,6 @@ export default function AllPledgeYearsPage() {
         </ul>
       );
     }
-    return ('');
   }
 
   return (
